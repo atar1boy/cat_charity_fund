@@ -14,7 +14,6 @@ class PreBase:
         return cls.__name__.lower()
 
     id = Column(Integer, primary_key=True)
-    create_date = Column(DateTime, default=datetime.now)
 
 
 Base = declarative_base(cls=PreBase)
@@ -28,6 +27,7 @@ class AbstractModel(Base):
     full_amount = Column(Integer, nullable=False)
     invested_amount = Column(Integer, default=0)
     fully_invested = Column(Boolean, default=False)
+    create_date = Column(DateTime, default=datetime.now)
     close_date = Column(DateTime)
 
 
