@@ -17,5 +17,5 @@ async def get_all_donations(
     """
     Возвращает список всех пожертвований.
     """
-    donations = await donation_crud.get_multi(session)
+    donations = await donation_crud.get(session)
     return donations

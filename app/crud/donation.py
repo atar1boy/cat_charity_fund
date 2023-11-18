@@ -6,4 +6,4 @@ class CRUDDonation(CRUDBase):
     pass
 
 
-reservation_crud = CRUDDonation(Donation)
+donation_crud = CRUDDonation(Donation)
