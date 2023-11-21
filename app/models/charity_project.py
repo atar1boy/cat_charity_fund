@@ -1,9 +1,9 @@
 from sqlalchemy import Column, String, Text
 
-from app.core.db import Base
+from app.core.db import AbstractModel
 
 
-class CharityProject(Base):
+class CharityProject(AbstractModel):
     """
     Модель благотворительный проект.
     """
