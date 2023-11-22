@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -21,6 +21,18 @@ class CRUDCharityProject(CRUDBase):
         )
         db_project_id = db_project_id.scalars().first()
         return db_project_id
+
+    # async def get_not_closed_projects(
+    #         self,
+    #         session: AsyncSession,
+    # ) -> List[CharityProject]:
+    #     projects = await session.execute(
+    #         select(CharityProject).where(
+    #             CharityProject.fully_invested == 'False').order_by(
+    #                 CharityProject.create_date)
+    #     )
+    #     projects = projects.scalars().all()
+    #     return projects
 
 
 charity_project_crud = CRUDCharityProject(CharityProject)
