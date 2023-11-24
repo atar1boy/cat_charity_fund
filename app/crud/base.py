@@ -58,6 +58,7 @@ class CRUDBase:
         for field in obj_data:
             if field in update_data:
                 setattr(db_obj, field, update_data[field])
+
         session.add(db_obj)
         await session.commit()
         await session.refresh(db_obj)

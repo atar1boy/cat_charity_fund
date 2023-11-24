@@ -2,17 +2,21 @@ from datetime import datetime
 
 from typing import Optional
 
-from pydantic import BaseModel, Field, PositiveInt
+from pydantic import BaseModel, Field, PositiveInt, Extra
 
 
 class CharityProjectBase(BaseModel):
-    name: str = Field(..., min_length=1, max_length=100)
-    description: str = Field(..., min_length=1)
+    name: str = Field(min_length=1, max_length=100)
+    description: str = Field(min_length=1)
+
+    class Config:
+        extra = Extra.forbid
 
 
 class CharityProjectDB(CharityProjectBase):
     id: int
     invested_amount: int
+    full_amount: int
     fully_invested: bool
     create_date: datetime
     close_date: Optional[datetime]

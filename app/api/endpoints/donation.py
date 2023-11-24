@@ -7,16 +7,18 @@ from app.models import User
 from app.schemas import (
     DonationCreate, DonationUserDB, DonationDB
 )
+from app.services import project_transactions
 
 
 router = APIRouter()
 
 
 @router.get(
-        '/',
-        response_model=list[DonationDB],
-        dependencies=[Depends(current_superuser)],
-    )
+    '/',
+    response_model=list[DonationDB],
+    dependencies=[Depends(current_superuser)],
+    response_model_exclude_none=True,
+)
 async def get_all_donations(
     session: AsyncSession = Depends(get_async_session)
 ):
@@ -28,10 +30,11 @@ async def get_all_donations(
 
 
 @router.get(
-        '/my',
-        response_model=list[DonationUserDB],
-        dependencies=[Depends(current_user)],
-    )
+    '/my',
+    response_model=list[DonationUserDB],
+    dependencies=[Depends(current_user)],
+    response_model_exclude_none=True,
+)
 async def get_user_donations(
     session: AsyncSession = Depends(get_async_session),
     user: User = Depends(current_user)
@@ -44,9 +47,10 @@ async def get_user_donations(
 
 
 @router.post(
-        '/',
-        response_model=DonationUserDB,
-        dependencies=[Depends(current_user)]
+    '/',
+    response_model=DonationUserDB,
+    dependencies=[Depends(current_user)],
+    response_model_exclude_none=True,
 )
 async def create_donation(
         donation: DonationCreate,
@@ -56,4 +60,5 @@ async def create_donation(
     new_donation = await donation_crud.create(
         donation, session, user
     )
+    new_donation = await project_transactions.investing(new_donation, session)
     return new_donation

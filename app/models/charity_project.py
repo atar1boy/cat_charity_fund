@@ -1,6 +1,6 @@
 from sqlalchemy import Column, String, Text
 
-from app.core.db import AbstractModel
+from app.models import AbstractModel
 
 
 class CharityProject(AbstractModel):

@@ -26,6 +26,37 @@ async def check_name_duplicate(
         project_name, session)
     if project_id is not None:
         raise HTTPException(
-            status_code=422,
+            status_code=400,
             detail='Проект с таким именем уже существует!',
+        )
+
+
+async def check_project_not_invested(
+        project: CharityProject
+) -> None:
+    if project.invested_amount > 0:
+        raise HTTPException(
+            status_code=400,
+            detail='В проект были внесены средства, не подлежит удалению!'
+        )
+
+
+async def check_project_not_fully_invested(
+        project: CharityProject
+) -> None:
+    if project.fully_invested:
+        raise HTTPException(
+            status_code=400,
+            detail='Закрытый проект нельзя редактировать!'
+        )
+
+
+async def check_full_amount(
+        obj_in_full_amount: int,
+        project_invested_amount: int
+) -> None:
+    if obj_in_full_amount < project_invested_amount:
+        raise HTTPException(
+            status_code=422,
+            detail='Запрещено устанавливать требуемую сумму меньше внесённой.'
         )
