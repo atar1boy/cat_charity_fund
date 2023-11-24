@@ -14,7 +14,7 @@ class CRUDTransactions:
         objs = await session.execute(
             select(self.model).where(
                 self.model.fully_invested == False).order_by(desc(  # noqa
-                    (self.model.create_date)))
+                    (self.model.id)))
         )
         objs = objs.scalars().all()
         return objs
