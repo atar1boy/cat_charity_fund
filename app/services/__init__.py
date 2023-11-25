@@ -1,1 +1,1 @@
-from .transactions import donation_transactions, project_transactions  # noqa
+from .transactions import project_transactions, donation_transactions  # noqa

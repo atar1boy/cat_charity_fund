@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core import get_async_session, current_superuser
-from app.crud import charity_project_crud
+from app.crud import charity_project_crud, donation_crud
 from app.schemas import (
     CharityProjectDB, CharityProjectCreate, CharityProjectUpdate
 )
@@ -11,7 +11,7 @@ from app.api.validators import (
     check_project_not_invested, check_full_amount,
     check_project_not_fully_invested
 )
-from app.services import donation_transactions
+from app.services import project_transactions, donation_transactions
 
 
 router = APIRouter()
@@ -40,8 +40,21 @@ async def create_charity_project(
         session: AsyncSession = Depends(get_async_session),
 ):
     await check_name_duplicate(project.name, session)
-    new_project = await charity_project_crud.create(project, session)
+    new_project = await charity_project_crud.create(
+        project, session, without_commit=True)
+
     new_project = await donation_transactions.investing(new_project, session)
+    # not_closed_donations = await donation_crud.get_not_closed_objs(
+    #     session)
+    # modified = (new_project, not_closed_donations)
+
+    # for obj in modified:
+    #     session.add(obj)
+
+    # new_project = modified.pop()
+    # session.commit()
+    # session.refresh(new_project)
+
     return new_project
 
 
@@ -59,13 +72,13 @@ async def partially_charity_project(
         project_id, session
     )
 
-    await check_project_not_fully_invested(project)
+    check_project_not_fully_invested(project)
 
     if obj_in.name is not None:
         await check_name_duplicate(obj_in.name, session)
 
     if obj_in.full_amount is not None:
-        await check_full_amount(obj_in.full_amount, project.invested_amount)
+        check_full_amount(obj_in.full_amount, project.invested_amount)
 
     if obj_in.full_amount == project.invested_amount:
         project.fully_invested = True
@@ -86,6 +99,6 @@ async def remove_charity_project(
         session: AsyncSession = Depends(get_async_session),
 ):
     project = await check_project_exists(project_id, session)
-    await check_project_not_invested(project)
+    check_project_not_invested(project)
     project = await charity_project_crud.remove(project, session)
     return project

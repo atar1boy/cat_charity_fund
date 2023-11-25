@@ -1,5 +1,5 @@
 from fastapi.encoders import jsonable_encoder
-from sqlalchemy import select
+from sqlalchemy import select, desc
 from sqlalchemy.ext.asyncio import AsyncSession
 
 
@@ -36,11 +36,31 @@ class CRUDBase:
             self,
             obj_in,
             session: AsyncSession,
+            without_commit=False
     ):
         """Создать объект в базе данных."""
         obj_in_data = obj_in.dict()
         db_obj = self.model(**obj_in_data)
         session.add(db_obj)
+        if without_commit:
+            return db_obj
+        await session.commit()
+        await session.refresh(db_obj)
+        return db_obj
+
+    async def user_create(
+        self,
+        obj_in,
+        session: AsyncSession,
+        user_id: int,
+        without_commit=False
+    ):
+        obj_in_data = obj_in.dict()
+        obj_in_data['user_id'] = user_id
+        db_obj = self.model(**obj_in_data)
+        session.add(db_obj)
+        if without_commit:
+            return db_obj
         await session.commit()
         await session.refresh(db_obj)
         return db_obj
@@ -73,3 +93,15 @@ class CRUDBase:
         await session.delete(db_obj)
         await session.commit()
         return db_obj
+
+    async def get_not_closed_objs(
+            self,
+            session: AsyncSession,
+    ):
+        objs = await session.execute(
+            select(self.model).where(
+                self.model.fully_invested == False).order_by(desc(  # noqa
+                    (self.model.id)))  # noqa При деплое заменить строчку на self.model.create_date
+        )
+        objs = objs.scalars().all()
+        return objs

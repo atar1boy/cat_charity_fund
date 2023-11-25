@@ -31,7 +31,7 @@ async def check_name_duplicate(
         )
 
 
-async def check_project_not_invested(
+def check_project_not_invested(
         project: CharityProject
 ) -> None:
     if project.invested_amount > 0:
@@ -41,7 +41,7 @@ async def check_project_not_invested(
         )
 
 
-async def check_project_not_fully_invested(
+def check_project_not_fully_invested(
         project: CharityProject
 ) -> None:
     if project.fully_invested:
@@ -51,7 +51,7 @@ async def check_project_not_fully_invested(
         )
 
 
-async def check_full_amount(
+def check_full_amount(
         obj_in_full_amount: int,
         project_invested_amount: int
 ) -> None:
