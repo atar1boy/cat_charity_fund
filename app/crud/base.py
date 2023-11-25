@@ -100,7 +100,8 @@ class CRUDBase:
     ):
         objs = await session.execute(
             select(self.model).where(
-                self.model.fully_invested == False)  # noqa
+                self.model.fully_invested == False).order_by(  # noqa
+                    self.model.create_date)
         )
         objs = objs.scalars().all()
-        return list(reversed(objs))
+        return objs

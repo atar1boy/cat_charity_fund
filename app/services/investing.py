@@ -12,7 +12,7 @@ def investing(
     modified = []
 
     while sources and required:
-        source = sources.pop()
+        source = sources.pop(0)
         available = source.full_amount - source.invested_amount
 
         if required >= available:
