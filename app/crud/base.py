@@ -100,8 +100,7 @@ class CRUDBase:
     ):
         objs = await session.execute(
             select(self.model).where(
-                self.model.fully_invested == False).order_by(desc(  # noqa
-                    (self.model.id)))  # noqa. Нужно заменить на 'self.model.create_data', сортировка по id использована как костыль для тестов.
+                self.model.fully_invested == False)  # noqa
         )
         objs = objs.scalars().all()
-        return objs
+        return list(reversed(objs))
