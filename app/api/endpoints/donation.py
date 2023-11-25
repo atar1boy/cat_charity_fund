@@ -8,7 +8,6 @@ from app.schemas import (
     DonationCreate, DonationUserDB, DonationDB
 )
 from app.services import investing
-from app.services import project_transactions
 
 router = APIRouter()
 
@@ -60,17 +59,15 @@ async def create_donation(
     new_donation = await donation_crud.user_create(
         donation, session, user.id
     )
-    # not_closed_projects = await charity_project_crud.get_not_closed_objs(
-    #     session)
-    # modified = investing(new_donation, not_closed_projects)
+    not_closed_projects = await charity_project_crud.get_not_closed_objs(
+        session)
+    modified = investing(new_donation, not_closed_projects)
 
-    # for obj in modified:
-    #     session.add(obj)
+    for obj in modified:
+        session.add(obj)
 
-    # new_donation = modified.pop()
-    # session.commit()
-    # session.refresh(new_donation)
-
-    new_donation = await project_transactions.investing(new_donation, session)
+    new_donation = modified.pop()
+    await session.commit()
+    await session.refresh(new_donation)
 
     return new_donation

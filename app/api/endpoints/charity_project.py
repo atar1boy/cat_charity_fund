@@ -11,7 +11,7 @@ from app.api.validators import (
     check_project_not_invested, check_full_amount,
     check_project_not_fully_invested
 )
-from app.services import project_transactions, donation_transactions
+from app.services import investing
 
 
 router = APIRouter()
@@ -43,17 +43,16 @@ async def create_charity_project(
     new_project = await charity_project_crud.create(
         project, session, without_commit=True)
 
-    new_project = await donation_transactions.investing(new_project, session)
-    # not_closed_donations = await donation_crud.get_not_closed_objs(
-    #     session)
-    # modified = (new_project, not_closed_donations)
+    not_closed_donations = await donation_crud.get_not_closed_objs(
+        session)
+    modified = investing(new_project, not_closed_donations)
 
-    # for obj in modified:
-    #     session.add(obj)
+    for obj in modified:
+        session.add(obj)
 
-    # new_project = modified.pop()
-    # session.commit()
-    # session.refresh(new_project)
+    new_project = modified.pop()
+    await session.commit()
+    await session.refresh(new_project)
 
     return new_project
 
