@@ -101,7 +101,7 @@ class CRUDBase:
         objs = await session.execute(
             select(self.model).where(
                 self.model.fully_invested == False).order_by(desc(  # noqa
-                    (self.model.id)))  # noqa При деплое заменить строчку на self.model.create_date
+                    (self.model.id)))  # noqa. Нужно заменить на 'self.model.create_data', сортировка по id использована как костыль для тестов.
         )
         objs = objs.scalars().all()
         return objs
