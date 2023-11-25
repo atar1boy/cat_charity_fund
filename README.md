@@ -1,6 +1,7 @@
 <h1 align="center"> Проект Кошачий Благотворительный Фонд :smiley_cat:
-<img src="https://github.com/blackcater/blackcater/raw/main/images/cat.gif" height="32"/></h1>
+
 <h3 align="center">API Позволяющий получать информацию о благотворительных проетах и автоматически распределять по ним пожертвования.</h3>
+
 
 ## Используемые технолологии:
 
@@ -11,7 +12,26 @@
 ![uvicorn](https://img.shields.io/badge/uvicorn-%23DD0031.svg?style=for-the-badge&)
 ![pydantic](https://img.shields.io/badge/pydantic-39477F?style=for-the-badge&)
 
-- [Как запустить проект](#Как--запустить--проект)
+## Код Писал
+<h3>Никита Ковалев</h3>
+<a href="https://discordapp.com/users/432288531583598592/">
+<img src="https://user-images.githubusercontent.com/74038190/235294015-47144047-25ab-417c-af1b-6746820a20ff.gif" width="60px"/>
+</a>
+<a href="https://t.me/gl_ready/">
+<img src="https://user-images.githubusercontent.com/74038190/235294015-47144047-25ab-417c-af1b-6746820a20ff.gif" width="60px"/>
+</a>
+</a>
+<a href="https://t.me/gl_ready/">
+<img src="https://user-images.githubusercontent.com/74038190/235294015-47144047-25ab-417c-af1b-6746820a20ff.gif" width="60px"/>
+</a>
+
+<br />
+<br />
+- [Как запустить проект](#как--запустить--проект)
+- [Запуск сервера](#запуск--сервера)
+- [Настройка базы данных](#настройка--базы--данных)
+<br />
+<br />
 
 ### Как запустить проект
 
@@ -66,9 +86,8 @@ python3 -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-## Запуск сервера:
+## Запуск сервера
 
 ```
 uvicorn app.main:app
 ```
-- [Face Smiling](#face-smiling)
