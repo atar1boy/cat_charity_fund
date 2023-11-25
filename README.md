@@ -15,18 +15,22 @@
 ## Код Писал
 <h3>Никита Ковалев</h3>
 <a href="https://discordapp.com/users/432288531583598592/">
-<img src="https://user-images.githubusercontent.com/74038190/235294015-47144047-25ab-417c-af1b-6746820a20ff.gif" width="60px"/>
+<img height="52" width="52" src="https://cdn.simpleicons.org/discord" />
 </a>
+&emsp;
 <a href="https://t.me/gl_ready/">
-<img src="https://user-images.githubusercontent.com/74038190/235294015-47144047-25ab-417c-af1b-6746820a20ff.gif" width="60px"/>
+<img height="50" width="50" src="https://cdn.simpleicons.org/telegram" />
 </a>
 </a>
-<a href="https://t.me/gl_ready/">
-<img src="https://user-images.githubusercontent.com/74038190/235294015-47144047-25ab-417c-af1b-6746820a20ff.gif" width="60px"/>
+&emsp;
+<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+<img height="50" width="50" src="https://cdn.simpleicons.org/youtube" />
 </a>
 
 <br />
 <br />
+
+## Оглавление:
 
 - [Как запустить проект](#как--запустить--проект)
 - [Запуск сервера](#запуск--сервера)
