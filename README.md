@@ -13,6 +13,7 @@
 ![pydantic](https://img.shields.io/badge/pydantic-39477F?style=for-the-badge&)
 
 ## Код Писал
+
 <h3>Никита Ковалев</h3>
 <a href="https://discordapp.com/users/432288531583598592/">
 <img height="52" width="52" src="https://cdn.simpleicons.org/discord" />
