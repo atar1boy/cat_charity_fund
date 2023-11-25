@@ -48,13 +48,7 @@
 git clone git@github.com:atar1boy/cat_charity_fund.git
 ```
 
-```
-cat_charity_fund
-```
-
-Создать .env файл внутри директории проекта:
-
-Пример файла .env
+Далее необходимо создать .env файл внутри директории проекта. Пример файла .env:
 
 ```
 APP_TITLE=TITLE
@@ -94,13 +88,13 @@ pip install -r requirements.txt
 ```
 ### Настройка базы данных
 
-Для начала нужно создать файлы миграции с помощью команды
+Для начала нужно создать файлы миграции с помощью команды:
 
 ```
 alembic revision --autogenerate -m "Initial structure" --rev-id 01
 ```
 
-Затем нужно будет применить их с помощью команды
+Затем нужно будет применить их с помощью команды:
 
 ```
 alembic upgrade head 
