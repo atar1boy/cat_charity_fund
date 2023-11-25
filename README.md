@@ -1,13 +1,19 @@
-<h1 align="center"> Проект Кошачий Благотворительный Фонд
+<h1 align="center"> Проект Кошачий Благотворительный Фонд :smiley_cat:
+<img src="https://github.com/blackcater/blackcater/raw/main/images/cat.gif" height="32"/></h1>
 <h3 align="center">API Позволяющий получать информацию о благотворительных проетах и автоматически распределять по ним пожертвования.</h3>
 
 ## Используемые технолологии:
 
-FastAPI
-sqlalchemy
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)
+![sqlalchemy](https://img.shields.io/badge/sqlalchemy-%2300f.svg?style=for-the-badge)
+![alembic](https://img.shields.io/badge/alembic-3ECF8E?style=for-the-badge&)
+![uvicorn](https://img.shields.io/badge/uvicorn-%23DD0031.svg?style=for-the-badge&)
+![pydantic](https://img.shields.io/badge/pydantic-39477F?style=for-the-badge&)
 
+- [Как запустить проект](#Как)
 
-## Как запустить проект:
+### Как
 
 Клонировать репозиторий и перейти в него в командной строке:
 
@@ -65,3 +71,4 @@ pip install -r requirements.txt
 ```
 uvicorn app.main:app
 ```
+- [Face Smiling](#face-smiling)
