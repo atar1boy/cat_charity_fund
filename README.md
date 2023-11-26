@@ -1,6 +1,6 @@
-<h1 align="center"> Проект Кошачий Благотворительный Фонд :smiley_cat:</h1>
+# Проект Кошачий Благотворительный Фонд :smiley_cat:
 
-<h3 align="center">API Позволяющий получать информацию о благотворительных проетах и автоматически распределять по ним пожертвования.</h3>
+### API Позволяющий получать информацию о благотворительных проетах и автоматически распределять по ним пожертвования.
 
 
 ## Используемые технолологии:
@@ -12,36 +12,20 @@
 ![uvicorn](https://img.shields.io/badge/uvicorn-%23DD0031.svg?style=for-the-badge&)
 ![pydantic](https://img.shields.io/badge/pydantic-39477F?style=for-the-badge&)
 
-## Код Писал
+## Автор
 
-<h3>Никита Ковалев</h3>
-<a href="https://discordapp.com/users/432288531583598592/">
-<img height="52" width="52" src="https://cdn.simpleicons.org/discord" />
-</a>
-&emsp;
-<a href="https://t.me/gl_ready/">
-<img height="50" width="50" src="https://cdn.simpleicons.org/telegram" />
-</a>
-</a>
-&emsp;
-<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
-<img height="50" width="50" src="https://cdn.simpleicons.org/youtube" />
-</a>
+### Никита Ковалев
 
-<br />
-<br />
+### Контакты: [Телеграм](https://t.me/gl_ready/)
 
-### Оглавление:
+## Оглавление:
 
 - [Как запустить проект](#как-запустить-проект)
 - [Запуск сервера](#запуск-сервера)
 - [Настройка базы данных](#настройка-базы-данных)
 - [Ссылка на документацию](#ссылка-на-документацию)
 
-<br />
-<br />
-
-### Как запустить проект
+## Как запустить проект
 
 Клонировать репозиторий и перейти в него в командной строке:
 
@@ -87,28 +71,22 @@ python3 -m pip install --upgrade pip
 ```
 pip install -r requirements.txt
 ```
-### Настройка базы данных
+## Настройка базы данных
 
-Для начала нужно создать файлы миграции с помощью команды:
-
-```
-alembic revision --autogenerate -m "Initial structure" --rev-id 01
-```
-
-Затем нужно будет применить их с помощью команды:
+Нужно будет применить их с помощью команды:
 
 ```
 alembic upgrade head 
 ```
 
-### Запуск сервера
+## Запуск сервера
 
 ```
 uvicorn app.main:app
 ```
 
-### Ссылка на документацию
+## Ссылка на документацию
 
-```
-http://127.0.0.1:8000/docs
-```
+[http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+
+Также можно посмотреть документацию с помощью [Redoc](https://redocly.github.io/redoc/). Нужно перейти на главную страницу, нажать на 'upload file' и загрузить файл 'openapi.json'.
