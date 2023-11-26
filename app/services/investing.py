@@ -1,12 +1,12 @@
 from datetime import datetime
 
-from app.models import BaseFieldsModel
+from app.models import BaseInvestmentFieldsModel
 
 
 def investing(
-        target: BaseFieldsModel,
-        sources: list[BaseFieldsModel],
-) -> tuple[BaseFieldsModel, list[BaseFieldsModel]]:
+        target: BaseInvestmentFieldsModel,
+        sources: list[BaseInvestmentFieldsModel],
+) -> tuple[BaseInvestmentFieldsModel, list[BaseInvestmentFieldsModel]]:
     modified = []
     for source in sources:
         required = target.full_amount - target.invested_amount
@@ -23,7 +23,7 @@ def investing(
     return target, modified
 
 
-def close_investment(*objs: BaseFieldsModel):
+def close_investment(*objs: BaseInvestmentFieldsModel):
     for obj in objs:
         if obj.invested_amount == obj.full_amount:
             obj.fully_invested = True

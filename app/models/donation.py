@@ -1,9 +1,9 @@
 from sqlalchemy import Column, Text, Integer, ForeignKey
 
-from app.models import BaseFieldsModel
+from app.models import BaseInvestmentFieldsModel
 
 
-class Donation(BaseFieldsModel):
+class Donation(BaseInvestmentFieldsModel):
     """
     Модель пожертвований.
     """
@@ -12,6 +12,6 @@ class Donation(BaseFieldsModel):
 
     def __repr__(self):
         return super().__repr__() + (
-            f'id пользователя: {self.user_id}, '
+            f'id пользователя: {self.user_id}'
             f'Комментарий: {self.comment} '
         )

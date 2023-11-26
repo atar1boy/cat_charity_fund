@@ -4,7 +4,7 @@ from sqlalchemy import Boolean, Column, Integer, DateTime, CheckConstraint
 from app.core.db import Base
 
 
-class BaseFieldsModel(Base):
+class BaseInvestmentFieldsModel(Base):
     """
     Родительский класс для моделей CharityProject и Donation.
     """
@@ -21,9 +21,8 @@ class BaseFieldsModel(Base):
 
     def __repr__(self):
         return (
-            f'Модель: {type(self).__name__}, '
-            f'Полная сумма: {self.full_amount}, '
-            f'Количество ивестиций: {self.invested_amount}, '
-            f'Полностью инвестирован: {self.fully_invested}, '
-            f'Дата создания: {self.create_date}, '
+            f'Модель: {type(self).__name__}'
+            f'Полная сумма: {self.full_amount}'
+            f'Количество ивестиций: {self.invested_amount}'
+            f'Дата создания: {self.create_date}'
         )

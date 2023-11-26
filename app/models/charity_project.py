@@ -1,9 +1,9 @@
 from sqlalchemy import Column, String, Text
 
-from app.models import BaseFieldsModel
+from app.models import BaseInvestmentFieldsModel
 
 
-class CharityProject(BaseFieldsModel):
+class CharityProject(BaseInvestmentFieldsModel):
     """
     Модель благотворительный проект.
     """
@@ -12,6 +12,6 @@ class CharityProject(BaseFieldsModel):
 
     def __repr__(self):
         return super().__repr__() + (
-            f'Название проекта: {self.name}, '
+            f'Название проекта: {self.name}'
             f'Описание проекта: {self.description}'
         )
