@@ -41,14 +41,13 @@ async def create_charity_project(
     await check_name_duplicate(project.name, session)
     new_project = await charity_project_crud.create(
         project, session, without_commit=True)
-    project, modified = investing(
+    session.add_all(investing(
         new_project,
         await donation_crud.get_not_closed_objs(session)
-    )
-    session.add_all(modified)
+    ))
     await session.commit()
-    await session.refresh(project)
-    return project
+    await session.refresh(new_project)
+    return new_project
 
 
 @router.patch(
