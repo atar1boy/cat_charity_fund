@@ -7,5 +7,4 @@ class User(SQLAlchemyBaseUserTable[int], Base):
     """
     Модель пользователя.
     """
-
     pass

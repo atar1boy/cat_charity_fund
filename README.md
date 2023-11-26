@@ -2,8 +2,7 @@
 
 <h3 align="center">API Позволяющий получать информацию о благотворительных проетах и автоматически распределять по ним пожертвования.</h3>
 
-
-## Используемые технолологии:
+## Используемые технолологии
 
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 ![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)
@@ -89,13 +88,7 @@ pip install -r requirements.txt
 ```
 ### Настройка базы данных
 
-Для начала нужно создать файлы миграции с помощью команды:
-
-```
-alembic revision --autogenerate -m "Initial structure" --rev-id 01
-```
-
-Затем нужно будет применить их с помощью команды:
+Применение их с помощью команды:
 
 ```
 alembic upgrade head 

@@ -13,7 +13,6 @@ class BaseFieldsModel(Base):
         CheckConstraint('full_amount > fully_invested'),
         CheckConstraint('fully_invested >= 0'),
     )
-
     full_amount = Column(Integer, nullable=False)
     invested_amount = Column(Integer, default=0)
     fully_invested = Column(Boolean, default=False)

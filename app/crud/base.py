@@ -41,14 +41,11 @@ class CRUDBase:
     ):
         """Создать объект в базе данных."""
         obj_in_data = obj_in.dict()
-
         if user_id is not None:
             obj_in_data['user_id'] = user_id
-
         db_obj = self.model(**obj_in_data)
         session.add(db_obj)
         await session.flush()
-
         if not without_commit:
             await session.commit()
             await session.refresh(db_obj)
@@ -67,7 +64,6 @@ class CRUDBase:
         for field in obj_data:
             if field in update_data:
                 setattr(db_obj, field, update_data[field])
-
         session.add(db_obj)
         await session.commit()
         await session.refresh(db_obj)
@@ -87,9 +83,9 @@ class CRUDBase:
             self,
             session: AsyncSession,
     ):
-        objs = await session.execute(
-            select(self.model).where(
+        return (await session.execute(select(self.model).where(
                 self.model.fully_invested == False).order_by(  # noqa
-                    self.model.create_date)
-        )
-        return objs.scalars().all()
+                    self.model.create_date
+                )
+            )
+            ).scalars().all()

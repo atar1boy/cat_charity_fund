@@ -7,7 +7,6 @@ class Donation(BaseFieldsModel):
     """
     Модель пожертвований.
     """
-
     user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
     comment = Column(Text)
 

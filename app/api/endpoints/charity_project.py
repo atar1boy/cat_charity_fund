@@ -41,12 +41,10 @@ async def create_charity_project(
     await check_name_duplicate(project.name, session)
     new_project = await charity_project_crud.create(
         project, session, without_commit=True)
-
     project, modified = investing(
         new_project,
         await donation_crud.get_not_closed_objs(session)
     )
-
     session.add_all(modified)
     await session.commit()
     await session.refresh(project)
@@ -66,18 +64,13 @@ async def partially_charity_project(
     project = await check_project_exists(
         project_id, session
     )
-
     check_project_not_fully_invested(project)
-
     if obj_in.name is not None:
         await check_name_duplicate(obj_in.name, session)
-
     if obj_in.full_amount is not None:
         check_full_amount(obj_in.full_amount, project.invested_amount)
-
     if obj_in.full_amount == project.invested_amount:
         project.fully_invested = True
-
     return await charity_project_crud.update(
         project, obj_in, session
     )
