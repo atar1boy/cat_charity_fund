@@ -85,7 +85,4 @@ class CRUDBase:
     ):
         return (await session.execute(select(self.model).where(
                 self.model.fully_invested == False).order_by(  # noqa
-                    self.model.create_date
-                )
-            )
-            ).scalars().all()
+                    self.model.create_date))).scalars().all()
