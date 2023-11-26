@@ -24,8 +24,7 @@ async def get_all_donations(
     """
     Возвращает список всех пожертвований.
     """
-    donations = await donation_crud.get_multi(session)
-    return donations
+    return await donation_crud.get_multi(session)
 
 
 @router.get(
@@ -41,8 +40,7 @@ async def get_user_donations(
     """
     Возвращает список всех пожертвований пользователя.
     """
-    donations = await donation_crud.get_user_donations(user, session)
-    return donations
+    return await donation_crud.get_user_donations(user, session)
 
 
 @router.post(
@@ -56,18 +54,16 @@ async def create_donation(
         session: AsyncSession = Depends(get_async_session),
         user: User = Depends(current_user)
 ):
-    new_donation = await donation_crud.user_create(
-        donation, session, user.id
+    new_donation = await donation_crud.create(
+        donation, session, user_id=user.id, without_commit=True
     )
-    not_closed_projects = await charity_project_crud.get_not_closed_objs(
-        session)
-    modified = investing(new_donation, not_closed_projects)
 
-    for obj in modified:
-        session.add(obj)
+    donation, modified = investing(
+        new_donation,
+        await charity_project_crud.get_not_closed_objs(session)
+    )
 
-    new_donation = modified.pop()
+    session.add_all(modified)
     await session.commit()
     await session.refresh(new_donation)
-
-    return new_donation
+    return donation

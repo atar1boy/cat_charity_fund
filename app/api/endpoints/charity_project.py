@@ -25,8 +25,7 @@ router = APIRouter()
 async def get_all_charity_projects(
         session: AsyncSession = Depends(get_async_session),
 ):
-    all_projects = await charity_project_crud.get_multi(session)
-    return all_projects
+    return await charity_project_crud.get_multi(session)
 
 
 @router.post(
@@ -43,18 +42,15 @@ async def create_charity_project(
     new_project = await charity_project_crud.create(
         project, session, without_commit=True)
 
-    not_closed_donations = await donation_crud.get_not_closed_objs(
-        session)
-    modified = investing(new_project, not_closed_donations)
+    project, modified = investing(
+        new_project,
+        await donation_crud.get_not_closed_objs(session)
+    )
 
-    for obj in modified:
-        session.add(obj)
-
-    new_project = modified.pop()
+    session.add_all(modified)
     await session.commit()
-    await session.refresh(new_project)
-
-    return new_project
+    await session.refresh(project)
+    return project
 
 
 @router.patch(
@@ -82,10 +78,9 @@ async def partially_charity_project(
     if obj_in.full_amount == project.invested_amount:
         project.fully_invested = True
 
-    project = await charity_project_crud.update(
+    return await charity_project_crud.update(
         project, obj_in, session
     )
-    return project
 
 
 @router.delete(
@@ -99,5 +94,4 @@ async def remove_charity_project(
 ):
     project = await check_project_exists(project_id, session)
     check_project_not_invested(project)
-    project = await charity_project_crud.remove(project, session)
-    return project
+    return await charity_project_crud.remove(project, session)

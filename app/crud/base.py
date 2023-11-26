@@ -36,33 +36,22 @@ class CRUDBase:
             self,
             obj_in,
             session: AsyncSession,
-            without_commit=False
+            without_commit: bool = False,
+            user_id: int = None
     ):
         """Создать объект в базе данных."""
         obj_in_data = obj_in.dict()
-        db_obj = self.model(**obj_in_data)
-        session.add(db_obj)
-        if without_commit:
-            return db_obj
-        await session.commit()
-        await session.refresh(db_obj)
-        return db_obj
 
-    async def user_create(
-        self,
-        obj_in,
-        session: AsyncSession,
-        user_id: int,
-        without_commit=False
-    ):
-        obj_in_data = obj_in.dict()
-        obj_in_data['user_id'] = user_id
+        if user_id is not None:
+            obj_in_data['user_id'] = user_id
+
         db_obj = self.model(**obj_in_data)
         session.add(db_obj)
-        if without_commit:
-            return db_obj
-        await session.commit()
-        await session.refresh(db_obj)
+        await session.flush()
+
+        if not without_commit:
+            await session.commit()
+            await session.refresh(db_obj)
         return db_obj
 
     async def update(
@@ -103,5 +92,4 @@ class CRUDBase:
                 self.model.fully_invested == False).order_by(  # noqa
                     self.model.create_date)
         )
-        objs = objs.scalars().all()
-        return objs
+        return objs.scalars().all()

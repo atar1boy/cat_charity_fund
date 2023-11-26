@@ -4,7 +4,7 @@ from sqlalchemy import Boolean, Column, Integer, DateTime, CheckConstraint
 from app.core.db import Base
 
 
-class ProjectAndDonationBaseModel(Base):
+class BaseFieldsModel(Base):
     """
     Родительский класс для моделей CharityProject и Donation.
     """
@@ -20,16 +20,11 @@ class ProjectAndDonationBaseModel(Base):
     create_date = Column(DateTime, default=datetime.now)
     close_date = Column(DateTime)
 
-    def __repr__(self, repr_data: dict = None):
-        representation = (
-            f'Модель: {self.__class__.__name__}, '
+    def __repr__(self):
+        return (
+            f'Модель: {type(self).__name__}, '
             f'Полная сумма: {self.full_amount}, '
+            f'Количество ивестиций: {self.invested_amount}, '
+            f'Полностью инвестирован: {self.fully_invested}, '
             f'Дата создания: {self.create_date}, '
         )
-        if repr_data is None:
-            return representation
-
-        for key in repr_data.keys():
-            representation += f'{key}: {repr_data[key]}, '
-
-        return representation

@@ -1,39 +1,39 @@
 from datetime import datetime
 
-from app.models import ProjectAndDonationBaseModel
+from app.models import BaseFieldsModel
 
 
 def investing(
-        target: ProjectAndDonationBaseModel,
-        sources: list[ProjectAndDonationBaseModel],
-) -> list:
+        target: BaseFieldsModel,
+        sources: list[BaseFieldsModel],
+) -> tuple[BaseFieldsModel, list[BaseFieldsModel]]:
 
-    required: int = target.full_amount
     modified = []
 
-    while sources and required:
-        source = sources.pop(0)
+    for source in sources:
+
+        required = target.full_amount - target.invested_amount
         available = source.full_amount - source.invested_amount
+        investment = 0
 
-        if required >= available:
-            required -= available
-            source.invested_amount = source.full_amount
-            source.fully_invested = True
-            source.close_date = datetime.now()
+        if required > available:
+            investment += available
 
-        else:
-            source.invested_amount += required
-            required = 0
+        if required <= available:
+            investment += required
+
+        target.invested_amount += investment
+        source.invested_amount += investment
+
+        close_investment(target, source)
 
         modified.append(source)
 
-    if required == 0:
-        target.invested_amount = target.full_amount
-        target.fully_invested = True
-        target.close_date = datetime.now()
-    else:
-        target.invested_amount = target.full_amount - required
+    return target, modified
 
-    modified.append(target)
 
-    return modified
+def close_investment(*objs: BaseFieldsModel):
+    for obj in objs:
+        if obj.invested_amount == obj.full_amount:
+            obj.fully_invested = True
+            obj.close_date = datetime.now()
