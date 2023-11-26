@@ -25,4 +25,5 @@ class BaseInvestmentFieldsModel(Base):
             f'Полная сумма: {self.full_amount}'
             f'Количество ивестиций: {self.invested_amount}'
             f'Дата создания: {self.create_date}'
+            f'Дата закрытия: {self.close_date}'
         )
