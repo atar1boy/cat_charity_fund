@@ -13,9 +13,8 @@ def investing(
             target.full_amount - target.invested_amount,
             source.full_amount - source.invested_amount
         )
-        target.invested_amount += investment
-        source.invested_amount += investment
         for obj in target, source:
+            obj.invested_amount += investment
             if obj.invested_amount == obj.full_amount:
                 obj.fully_invested = True
                 obj.close_date = datetime.now()
