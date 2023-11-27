@@ -92,4 +92,5 @@ class CRUDBase:
                 ).order_by(
                     self.model.create_date
                 )
-            )).scalars().all()
+            )
+        ).scalars().all()
