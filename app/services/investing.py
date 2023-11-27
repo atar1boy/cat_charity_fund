@@ -15,12 +15,11 @@ def investing(
         )
         target.invested_amount += investment
         source.invested_amount += investment
-        if source.invested_amount == source.full_amount:
-            source.fully_invested = True
-            source.close_date = datetime.now()
+        for obj in target, source:
+            if obj.invested_amount == obj.full_amount:
+                obj.fully_invested = True
+                obj.close_date = datetime.now()
         modified.append(source)
-        if target.invested_amount == target.full_amount:
-            target.fully_invested = True
-            target.close_date = datetime.now()
+        if target.fully_invested:
             break
     return modified

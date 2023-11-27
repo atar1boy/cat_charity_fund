@@ -73,7 +73,7 @@ pip install -r requirements.txt
 ```
 ## Настройка базы данных
 
-Нужно будет применить их с помощью команды:
+Нужно применить миграции с помощью команды:
 
 ```
 alembic upgrade head 
@@ -87,6 +87,6 @@ uvicorn app.main:app
 
 ## Ссылка на документацию
 
-[http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+Swagger [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
 
-Также можно посмотреть документацию с помощью [Redoc](https://redocly.github.io/redoc/). Нужно перейти на главную страницу, нажать на 'upload file' и загрузить файл 'openapi.json'.
+Redoc [http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc)

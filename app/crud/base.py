@@ -83,6 +83,14 @@ class CRUDBase:
             self,
             session: AsyncSession,
     ):
-        return (await session.execute(select(self.model).where(
-                self.model.fully_invested == False).order_by(  # noqa
-                    self.model.create_date))).scalars().all()
+        return (
+            await session.execute(
+                select(
+                    self.model
+                ).where(
+                    self.model.fully_invested == False  # noqa
+                ).order_by(
+                    self.model.create_date
+                )
+            )
+            ).scalars().all()
